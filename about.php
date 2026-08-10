@@ -416,7 +416,7 @@ natsort($buoiFolders);
                             <span class="fact-icon">🎂</span>
                             <div>
                                 <strong data-i18n="factBirthday">Ngày sinh:</strong>
-                                <span data-i18n="factBirthdayVal">29/12/2006 (18 tuổi)</span>
+                                <span data-i18n="factBirthdayVal">29/12/2006 (19 tuổi)</span>
                             </div>
                         </div>
                         <div class="fact-item">
@@ -430,14 +430,14 @@ natsort($buoiFolders);
                             <span class="fact-icon">🎓</span>
                             <div>
                                 <strong data-i18n="factEducation">Trình độ:</strong>
-                                <span data-i18n="factEducationVal">Sinh viên CNTT - Năm 2</span>
+                                <span data-i18n="factEducationVal">Sinh viên CNTT - Năm 3</span>
                             </div>
                         </div>
                         <div class="fact-item">
                             <span class="fact-icon">💼</span>
                             <div>
                                 <strong data-i18n="factRole">Vai trò:</strong>
-                                <span data-i18n="factRoleVal">Full-Stack Developer</span>
+                                <span data-i18n="factRoleVal">Full-Stack Developer-Cloud Engineering-System Design</span>
                             </div>
                         </div>
                         <div class="fact-item">
@@ -1315,6 +1315,78 @@ natsort($buoiFolders);
             </div>
             <div class="achievements-grid">
                 <div class="achievement-card">
+                    <div class="achievement-image" style="position: relative; overflow: hidden; border-radius: 12px;">
+                        <video controls style="width: 100%; max-height: 220px; object-fit: cover; display: block; border-radius: 12px 12px 0 0;">
+                            <source src="1786370483800_423698007583510178_5649508933815108388.mp4" type="video/mp4">
+                            Trình duyệt của bạn không hỗ trợ phát video.
+                        </video>
+                    </div>
+                    <div class="achievement-content">
+                        <h3>Video Highlight Thành Tựu</h3>
+                        <p>Video ngắn ghi lại những khoảnh khắc đáng nhớ và kỷ niệm trong quá trình học tập & thi đấu</p>
+                        <div class="achievement-tags">
+                            <span class="tag">Video</span>
+                            <span class="tag">Highlight</span>
+                            <span class="tag">Media</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-image">
+                        <img src="1782056650959_423698007583510178_5649508933815108388_b75fd7397a0a4d5c13559c9af43cf969.jpg" alt="Chứng nhận Hoạt động / Khen thưởng 1">
+                        <div class="achievement-overlay">
+                            <a href="1782056650959_423698007583510178_5649508933815108388_b75fd7397a0a4d5c13559c9af43cf969.jpg" target="_blank" class="achievement-link"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <div class="achievement-content">
+                        <h3>Chứng Nhận Hoạt Động & Khen Thưởng</h3>
+                        <p>Chứng nhận tham gia và đạt thành tích xuất sắc trong các hoạt động phong trào & công nghệ</p>
+                        <div class="achievement-tags">
+                            <span class="tag">Certificate</span>
+                            <span class="tag">Activity</span>
+                            <span class="tag">2026</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-image">
+                        <img src="1786370483211_423698007583510178_5649508933815108388_8b12b602649945791ffc17fe774919b3.jpg" alt="Chứng nhận Hoạt động / Khen thưởng 2">
+                        <div class="achievement-overlay">
+                            <a href="1786370483211_423698007583510178_5649508933815108388_8b12b602649945791ffc17fe774919b3.jpg" target="_blank" class="achievement-link"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <div class="achievement-content">
+                        <h3>Thành Tựu & Giải Thưởng Học Tập</h3>
+                        <p>Ghi nhận nỗ lực xuất sắc trong học tập và rèn luyện kỹ năng chuyên môn</p>
+                        <div class="achievement-tags">
+                            <span class="tag">Academic</span>
+                            <span class="tag">Award</span>
+                            <span class="tag">2026</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-image">
+                        <img src="1786370483534_423698007583510178_5649508933815108388_d42080fbfb22f038e42298725d63b49c.jpg" alt="Chứng nhận Hoạt động / Khen thưởng 3">
+                        <div class="achievement-overlay">
+                            <a href="1786370483534_423698007583510178_5649508933815108388_d42080fbfb22f038e42298725d63b49c.jpg" target="_blank" class="achievement-link"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <div class="achievement-content">
+                        <h3>Giấy Chứng Nhận Kỹ Năng & Thành Tích</h3>
+                        <p>Minh chứng cho sự kiên trì và phát triển không ngừng trong sự nghiệp lập trình</p>
+                        <div class="achievement-tags">
+                            <span class="tag">Skills</span>
+                            <span class="tag">Achievement</span>
+                            <span class="tag">2026</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="achievement-card">
                     <div class="achievement-image">
                         <img src="1782056644240_423698007583510178_5649508933815108388_60ac2f5b167dda1b207c092ccfcc587d.jpg" alt="Google Cloud Certification">
                         <div class="achievement-overlay">
@@ -1328,23 +1400,6 @@ natsort($buoiFolders);
                             <span class="tag">Google Cloud</span>
                             <span class="tag">Cloud Computing</span>
                             <span class="tag">2026</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="achievement-card">
-                    <div class="achievement-image">
-                        <img src="image.png" alt="Achievement 2">
-                        <div class="achievement-overlay">
-                            <a href="image.png" target="_blank" class="achievement-link"><i class="fas fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                    <div class="achievement-content">
-                        <h3 data-i18n="achProfessional">Thành Tựu Chuyên Môn</h3>
-                        <p data-i18n="achProfessionalDesc">Được công nhận cho hiệu suất xuất sắc trong phát triển phần mềm và giải quyết vấn đề</p>
-                        <div class="achievement-tags">
-                            <span class="tag">Development</span>
-                            <span class="tag">Excellence</span>
                         </div>
                     </div>
                 </div>
@@ -1375,29 +1430,12 @@ natsort($buoiFolders);
                         </div>
                     </div>
                     <div class="achievement-content">
-                        <h3 data-i18n="achGameKren">GameKren Prize - 16M VND</h3>
+                        <h3 data-i18n="achGameKren">ITPlus - 16M VND</h3>
                         <p data-i18n="achGameKrenDesc">Giải thưởng, kết quả thi TN 2024</p>
                         <div class="achievement-tags">
-                            <span class="tag">Game Dev</span>
+                            <span class="tag">IT Dev</span>
                             <span class="tag">Award</span>
                             <span class="tag">2024</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="achievement-card">
-                    <div class="achievement-image">
-                        <img src="1image.png" alt="Achievement 3">
-                        <div class="achievement-overlay">
-                            <a href="1image.png" target="_blank" class="achievement-link"><i class="fas fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                    <div class="achievement-content">
-                        <h3 data-i18n="achMilestone">Cột Mốc Cá Nhân</h3>
-                        <p data-i18n="achMilestoneDesc">Thành tựu đáng nhớ trong hành trình phát triển cá nhân và chuyên môn</p>
-                        <div class="achievement-tags">
-                            <span class="tag">Achievement</span>
-                            <span class="tag">Growth</span>
                         </div>
                     </div>
                 </div>

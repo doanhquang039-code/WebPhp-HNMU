@@ -1,42 +1,22 @@
 // Service Worker - DevPortfolio PWA
-const CACHE_NAME = 'devportfolio-v1';
-const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/enhancements.css',
-  '/chatbot.css',
-  '/script.js',
-  '/i18n.js',
-  '/auth.js',
-  '/chatbot.js',
-  '/particles-config.js',
-  '/pdf-export.js',
-  '/terminal.js',
-  '/visitor-map.js',
-];
+const CACHE_NAME = 'devportfolio-v2';
 
-// Install: cache static assets
+// Install: Skip waiting to force update
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(STATIC_ASSETS).catch(() => {});
-    })
-  );
   self.skipWaiting();
 });
 
-// Activate: clean old caches
+// Activate: clean all old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
+      Promise.all(keys.map(k => caches.delete(k)))
     )
   );
   self.clients.claim();
 });
 
-// Fetch: serve from cache, fallback to network
+// Fetch: Network First strategy for development
 self.addEventListener('fetch', (event) => {
   // Skip non-GET and cross-origin requests
   if (event.request.method !== 'GET') return;
@@ -44,15 +24,6 @@ self.addEventListener('fetch', (event) => {
   if (url.origin !== self.location.origin) return;
 
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      const networkFetch = fetch(event.request).then((response) => {
-        if (response.ok) {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then(c => c.put(event.request, clone));
-        }
-        return response;
-      });
-      return cached || networkFetch;
-    }).catch(() => caches.match('/index.html'))
+    fetch(event.request).catch(() => caches.match(event.request))
   );
 });
