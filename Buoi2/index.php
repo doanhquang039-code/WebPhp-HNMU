@@ -1,47 +1,122 @@
-﻿<?php
-$files = scandir(__DIR__);
-$files = array_diff($files, array('.', '..', 'index.php'));
+<?php
+session_start();
+
+// Khởi tạo mảng lưu danh sách sự kiện
+if (!isset($_SESSION['danh_sach_su_kien'])) {
+    $_SESSION['danh_sach_su_kien'] = [];
+}
+
+// 1. Hàm tự định nghĩa để xử lý nghiệp vụ
+// Yêu cầu: Đánh giá quy mô sự kiện dựa trên sức chứa
+function xacDinhQuyMo($suc_chua) {
+    if ($suc_chua >= 100) {
+        return "Lớn";
+    } elseif ($suc_chua >= 50) {
+        return "Vừa";
+    } else {
+        return "Nhỏ";
+    }
+}
+
+// Tiếp nhận và xử lý dữ liệu khi người dùng submit form
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $ten = $_POST['ten_su_kien'];
+    $ngay = $_POST['ngay_dien_ra'];
+    $suc_chua = $_POST['suc_chua'];
+
+    // 2. Sử dụng điều kiện để kiểm tra dữ liệu
+    if ($ten != "" && $ngay != "" && $suc_chua > 0) {
+        
+        // Kiểm tra sự kiện đã tồn tại (trùng tên và trùng ngày)
+        $bi_trung = false;
+        foreach ($_SESSION['danh_sach_su_kien'] as $sk) {
+            if (strtolower($sk['ten']) == strtolower($ten) && $sk['ngay'] == $ngay) {
+                $bi_trung = true;
+                break;
+            }
+        }
+
+        if ($bi_trung) {
+            $thong_bao = "Lỗi: Sự kiện này đã được lên lịch vào ngày $ngay rồi!";
+        } else {
+            // 3. Tổ chức dữ liệu bằng mảng
+            $su_kien_moi = [
+                'ten' => $ten,
+                'ngay' => $ngay,
+                'suc_chua' => $suc_chua,
+                'quy_mo' => xacDinhQuyMo($suc_chua) // Gọi hàm
+            ];
+            
+            // Thêm sự kiện mới vào mảng chính
+            $_SESSION['danh_sach_su_kien'][] = $su_kien_moi;
+            $thong_bao = "Thêm sự kiện thành công!";
+        }
+        
+    } else {
+        $thong_bao = "Vui lòng nhập đầy đủ thông tin hợp lệ!";
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bài tập - <?php echo basename(__DIR__); ?></title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0f172a; color: #e2e8f0; padding: 30px; max-width: 800px; margin: 0 auto; }
-        h1 { color: #818cf8; border-bottom: 2px solid #334155; padding-bottom: 10px; }
-        .file-list { list-style: none; padding: 0; }
-        .file-list li { margin: 15px 0; padding: 15px; background: #1e293b; border-radius: 8px; border: 1px solid #334155; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
-        .file-list a { color: #38bdf8; text-decoration: none; font-size: 1.1em; font-weight: 500; display: flex; align-items: center; gap: 10px; }
-        .file-list a:hover { text-decoration: underline; color: #7dd3fc; }
-        img.preview { max-width: 100%; height: auto; display: block; margin-top: 15px; border-radius: 6px; border: 1px solid #475569; }
-        .back-btn { display: inline-flex; align-items: center; margin-bottom: 20px; padding: 8px 16px; background-color: #4f46e5; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; transition: background 0.3s; }
-        .back-btn:hover { background-color: #4338ca; }
-    </style>
+    <title>Bài tập Buổi 2</title>
 </head>
 <body>
-    <a href="../about.php" class="back-btn">⬅ Quay lại Trang chủ</a>
-    <h1>📂 Thư mục: <?php echo basename(__DIR__); ?></h1>
+    <a href="https://quangdoanh17b5.infinityfree.me/about.php" style="display: inline-block; margin-bottom: 10px; color: #007bff; text-decoration: none;">&larr; Quay lại hệ thống chính</a>
+    <h2>Form Nhập Thông Tin Sự Kiện</h2>
     
-    <?php if (empty($files)): ?>
-        <p>Thư mục này hiện chưa có bài tập hoặc file nào.</p>
-    <?php else: ?>
-        <ul class="file-list">
-            <?php foreach ($files as $file): ?>
-                <li>
-                    <a href="<?php echo htmlspecialchars($file); ?>">
-                        📄 <?php echo htmlspecialchars($file); ?>
-                    </a>
-                    <?php 
-                        $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-                        if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp'])):
-                    ?>
-                        <img src="<?php echo htmlspecialchars($file); ?>" alt="<?php echo htmlspecialchars($file); ?>" class="preview">
-                    <?php endif; ?>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    <?php endif; ?>
+    <!-- Hiện thông báo nếu có -->
+    <?php if (isset($thong_bao)) {
+        echo "<p style='color: blue;'><b>" . $thong_bao . "</b></p>";
+    } ?>
+
+    <!-- Form nhập liệu -->
+    <form method="POST" action="">
+        <p>
+            Tên sự kiện:<br>
+            <input type="text" name="ten_su_kien">
+        </p>
+        <p>
+            Ngày diễn ra:<br>
+            <input type="date" name="ngay_dien_ra">
+        </p>
+        <p>
+            Sức chứa (số người):<br>
+            <input type="number" name="suc_chua">
+        </p>
+        <button type="submit">Lưu dữ liệu</button>
+    </form>
+
+    <hr>
+
+    <h2>Danh Sách Sự Kiện Đã Nhập</h2>
+    <!-- Hiển thị dưới dạng bảng -->
+    <table border="1" cellpadding="10" cellspacing="0" width="600">
+        <tr style="background-color: #f2f2f2;">
+            <th>STT</th>
+            <th>Tên sự kiện</th>
+            <th>Ngày diễn ra</th>
+            <th>Sức chứa</th>
+            <th>Quy mô</th>
+        </tr>
+        
+        <?php 
+        // 4. Sử dụng vòng lặp để hiển thị dữ liệu
+        $stt = 1;
+        foreach ($_SESSION['danh_sach_su_kien'] as $sk) { 
+        ?>
+            <tr>
+                <td><?php echo $stt++; ?></td>
+                <td><?php echo $sk['ten']; ?></td>
+                <td><?php echo $sk['ngay']; ?></td>
+                <td><?php echo $sk['suc_chua']; ?></td>
+                <td><?php echo $sk['quy_mo']; ?></td>
+            </tr>
+        <?php } ?>
+        
+    </table>
 </body>
 </html>
