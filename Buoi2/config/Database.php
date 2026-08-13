@@ -6,7 +6,7 @@ class Database {
     // ==========================================
     private $host = 'sql204.infinityfree.com';
     private $user = 'if0_42620001';
-    private $pass = 'Doanhngu123';
+    private $pass = 'Doanhdz1234';
     private $name = 'if0_42620001_buoi2';
     private $port = '3306';
 
