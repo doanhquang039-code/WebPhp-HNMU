@@ -1,0 +1,14 @@
+# Hướng dẫn thay đổi config khi deploy lên InfinityFree
+
+# 1. Đăng nhập cPanel InfinityFree → MySQL Databases
+# 2. Tạo database mới, ghi lại thông tin:
+#    Host: sqlXXX.infinityfree.com  ← xem trong cPanel
+#    Database: epiz_XXXXXXX_buoi2  ← tên bạn đặt
+#    User: epiz_XXXXXXX            ← username InfinityFree
+#    Pass: mật khẩu bạn đặt
+
+# 3. Vào config/Database.php và sửa 4 dòng sau:
+private $host = 'sqlXXX.infinityfree.com';   # thay bằng host thật
+private $user = 'epiz_XXXXXXX';              # thay bằng user thật
+private $pass = 'your_db_password';          # thay bằng pass thật
+private $name = 'epiz_XXXXXXX_buoi2';        # thay bằng tên DB thật
