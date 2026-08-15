@@ -3,10 +3,6 @@ require_once __DIR__ . '/../models/SuKien.php';
 require_once __DIR__ . '/../repositories/SuKienRepository.php';
 require_once __DIR__ . '/../repositories/DanhMucRepository.php';
 
-/**
- * SuKienController - Xử lý logic, gọi Repository, render View
- * Không chứa SQL, không tạo object DB trực tiếp
- */
 class SuKienController {
     private SuKienRepository  $repo;
     private DanhMucRepository $danhMucRepo;
@@ -16,35 +12,27 @@ class SuKienController {
         $this->danhMucRepo = new DanhMucRepository();
     }
 
-    // -------------------------------------------------
-    // GET: Danh sách tất cả sự kiện
-    // -------------------------------------------------
+ 
     public function index(): void {
         $danh_sach = $this->repo->getAll();
         require __DIR__ . '/../views/index.php';
     }
 
-    // -------------------------------------------------
-    // GET: Hiển thị form tạo mới
-    // -------------------------------------------------
     public function create(): void {
         $danh_muc = $this->danhMucRepo->getAll();
         $loi      = '';
         require __DIR__ . '/../views/create.php';
     }
 
-    // -------------------------------------------------
-    // POST: Lưu sự kiện mới vào DB
-    // -------------------------------------------------
+   
     public function store(): void {
-        // Lấy & làm sạch dữ liệu POST
+        
         $ten      = trim($_POST['ten']          ?? '');
         $ngay     = trim($_POST['ngay_dien_ra'] ?? '');
         $sucChua  = (int)($_POST['suc_chua']    ?? 0);
         $loaiId   = (int)($_POST['loai_id']     ?? 0);
         $ghiChu   = trim($_POST['ghi_chu']      ?? '');
 
-        // Kiểm tra hợp lệ
         if (!$ten || !$ngay || $sucChua <= 0 || !$loaiId) {
             $loi      = "Vui lòng nhập đầy đủ thông tin hợp lệ!";
             $danh_muc = $this->danhMucRepo->getAll();
@@ -52,7 +40,7 @@ class SuKienController {
             return;
         }
 
-        // Kiểm tra trùng lặp
+       
         if ($this->repo->isDuplicate($ten, $ngay)) {
             $loi      = "Sự kiện '$ten' đã tồn tại vào ngày $ngay!";
             $danh_muc = $this->danhMucRepo->getAll();
@@ -60,7 +48,7 @@ class SuKienController {
             return;
         }
 
-        // Tạo object Model, để Model tự tính quy mô
+       
         $sk = new SuKien([
             'ten'          => $ten,
             'ngay_dien_ra' => $ngay,
@@ -74,9 +62,7 @@ class SuKienController {
         exit;
     }
 
-    // -------------------------------------------------
-    // GET: Hiển thị form chỉnh sửa
-    // -------------------------------------------------
+   
     public function edit(): void {
         $id      = (int)($_GET['id'] ?? 0);
         $su_kien = $this->repo->findById($id);
@@ -91,9 +77,7 @@ class SuKienController {
         require __DIR__ . '/../views/edit.php';
     }
 
-    // -------------------------------------------------
-    // POST: Cập nhật sự kiện
-    // -------------------------------------------------
+   
     public function update(): void {
         $id      = (int)($_POST['id']          ?? 0);
         $ten     = trim($_POST['ten']          ?? '');
@@ -131,10 +115,7 @@ class SuKienController {
         header("Location: index.php?thong_bao=sua_thanh_cong");
         exit;
     }
-
-    // -------------------------------------------------
-    // GET: Xóa sự kiện
-    // -------------------------------------------------
+  
     public function delete(): void {
         $id = (int)($_GET['id'] ?? 0);
         $this->repo->delete($id);

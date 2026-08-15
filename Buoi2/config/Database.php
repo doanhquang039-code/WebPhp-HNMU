@@ -1,9 +1,6 @@
 <?php
 class Database {
-    // ==========================================
-    // CẤU HÌNH PRODUCTION (InfinityFree)
-    // Password = mật khẩu đăng nhập vPanel của bạn
-    // ==========================================
+   
     private $host = 'sql204.infinityfree.com';
     private $user = 'if0_42620001';
     private $pass = 'Doanhdz1234';
@@ -24,8 +21,7 @@ class Database {
             die("Lỗi kết nối CSDL: " . $e->getMessage());
         }
     }
-
-    // Singleton pattern - chỉ tạo 1 kết nối duy nhất
+ 
     public static function getInstance() {
         if (self::$instance === null) {
             self::$instance = new Database();

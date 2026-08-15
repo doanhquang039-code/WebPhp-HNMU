@@ -1,8 +1,4 @@
 <?php
-/**
- * Model SuKien - Lớp thực thể thuần, không chứa SQL
- * Chỉ chứa: thuộc tính, constructor, hàm nghiệp vụ
- */
 class SuKien {
     public int    $id;
     public string $ten;
@@ -11,7 +7,7 @@ class SuKien {
     public string $quyMo;
     public int    $loaiId;
     public string $ghiChu;
-    public string $tenLoai; // Được map từ JOIN với bảng danh_muc
+    public string $tenLoai;
 
     public function __construct(array $data = []) {
         $this->id         = (int)($data['id']            ?? 0);
@@ -25,9 +21,7 @@ class SuKien {
     }
 
 
-    /**
-     * Hàm nghiệp vụ: Tự đánh giá quy mô dựa trên sức chứa
-     */
+   
     public function xacDinhQuyMo(int $sucChua): string {
         if ($sucChua >= 100) return 'Lớn';
         if ($sucChua >= 50)  return 'Vừa';
@@ -35,7 +29,7 @@ class SuKien {
     }
 
     /**
-     * Chuyển object → mảng để truyền vào Repository
+     * object -> [] -> repo
      */
     public function toArray(): array {
         return [

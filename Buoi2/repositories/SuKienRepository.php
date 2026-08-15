@@ -2,10 +2,6 @@
 require_once __DIR__ . '/../config/Database.php';
 require_once __DIR__ . '/../models/SuKien.php';
 
-/**
- * SuKienRepository - Toàn bộ SQL liên quan đến bảng su_kien
- * Controller và Service không được viết SQL trực tiếp — gọi qua đây
- */
 class SuKienRepository {
     private PDO $db;
 
@@ -26,10 +22,7 @@ class SuKienRepository {
         $rows = $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
         return array_map(fn($row) => new SuKien($row), $rows);
     }
-
-    /**
-     * Lấy một sự kiện theo ID
-     */
+   
     public function findById(int $id): ?SuKien {
         $stmt = $this->db->prepare(
             "SELECT * FROM su_kien WHERE id = ?"
@@ -39,11 +32,7 @@ class SuKienRepository {
 
         return $row ? new SuKien($row) : null;
     }
-
-    /**
-     * Kiểm tra sự kiện bị trùng tên + ngày
-     * Nếu $excludeId != null thì bỏ qua bản ghi đó (dùng khi update)
-     */
+  
     public function isDuplicate(string $ten, string $ngay, int $excludeId = 0): bool {
         $sql    = "SELECT id FROM su_kien WHERE ten = ? AND ngay_dien_ra = ?";
         $params = [$ten, $ngay];
@@ -58,9 +47,7 @@ class SuKienRepository {
         return (bool) $stmt->fetch();
     }
 
-    /**
-     * Thêm sự kiện mới vào DB
-     */
+  
     public function insert(SuKien $sk): bool {
         $sql = "INSERT INTO su_kien
                     (ten, ngay_dien_ra, suc_chua, quy_mo, loai_id, ghi_chu)
@@ -71,9 +58,7 @@ class SuKienRepository {
         return $stmt->execute($sk->toArray());
     }
 
-    /**
-     * Cập nhật sự kiện theo ID
-     */
+ 
     public function update(SuKien $sk): bool {
         $sql = "UPDATE su_kien
                 SET    ten = :ten,
@@ -90,10 +75,6 @@ class SuKienRepository {
         $stmt = $this->db->prepare($sql);
         return $stmt->execute($data);
     }
-
-    /**
-     * Xóa sự kiện theo ID
-     */
     public function delete(int $id): bool {
         $stmt = $this->db->prepare("DELETE FROM su_kien WHERE id = ?");
         return $stmt->execute([$id]);
